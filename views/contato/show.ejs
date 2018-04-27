@@ -1,0 +1,26 @@
+<% include ../header %>
+
+<header>
+    <h2>NTalk - Agenda de Contatos</h2>
+</header>
+<section>
+    <table>
+        <thead>
+            <th>Nome</th>
+            <th>E-mail</th>
+            <th>Ação</th>
+        </thead>
+        <tbody>
+            <% contatos.forEach(function(contato, index){ %>
+            <tr>
+                <td><%- contato.nome%></td>
+                <td><%- contato.email%></td>
+                <td>
+                    <a href="/contato/<%- index %>">Detalhes</a>
+                </td>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
+</section>
+<% include ../footer %>
