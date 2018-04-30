@@ -4,7 +4,6 @@ module.exports = function(app){
             res.render('home/index');
         },
         login: function(req, res){
-
             var usuario = req.body;
             if(!usuario)
                 res.redirect('/');

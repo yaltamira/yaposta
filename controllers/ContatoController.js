@@ -25,8 +25,35 @@ module.exports = function(app){
                 params = {contato: contato, id: id}
 
             res.redirect('/contato/show', params);
-        }
-        
+        },
+        edit: function(req, res){
+            var id = req.params.id,
+                usuario = req.session.usuario,
+                contato = req.session.usuario.contatos[id],
+                params = {
+                    usuario: usuario,
+                    contato: contato,
+                    id: id
+                };
+
+                res.render('contato/edit', params);
+        },
+        update: function(req, res){
+            var usuario = req.session.usuario, 
+                contato = req.body.contato,
+                id = req.params.id;
+            
+            usuario.contatos[id] = contato;
+
+            res.redirect('/contato');
+        },
+        destroy: function(req, res){
+            var usuario = req.session.usuario,
+                id = req.params.id;
+            
+            usuario.contatos.splice(id, 1);
+            res.redirect('/contato');
+        }   
     };
 
     return ContatoController;

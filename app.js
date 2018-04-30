@@ -1,13 +1,11 @@
 var express = require('express'),
     routes = require('./routes'),
     bodyParser = require('body-parser'),
-    session = require('express-session');
+    session = require('express-session'),
+    error = require('./middleware/error'),
+    load = require('express-load');
 
-//var indexRoute = require('./routes/index');    
-var load = require('express-load');
 var app = express();
-
-//console.log(indexRoute.route);
 
 // view engine setup
 app.set('views', __dirname + '/views');
@@ -25,15 +23,12 @@ app.use(bodyParser.json());
 
 app.use(express.static(__dirname + '/public'));
 
-//app.get('/', indexRoute);
-//app.get('/usuarios', routes.user.index);
-
+app.use(error.notFound);
+app.use(error.serverError);
 
 load('models')
   .then('controllers')
   .then('routes')
   .into(app);
 
-
-//module.exports = app;
 app.listen(3000, function(){ console.log("Ntalk no ar."); }); 
